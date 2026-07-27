@@ -30,7 +30,6 @@
       .back-btn { background: rgba(255,255,255,0.2); border: none; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: bold; }
       .modal-body { flex: 1; width: 100%; }
       iframe { width: 100%; height: 100%; border: none; }
-      /* 載入動畫 */
       #loader { text-align: center; color: var(--primary-color); font-weight: bold; display: none; margin-bottom: 20px;}
     </style>
   </head>
@@ -39,7 +38,7 @@
     <div class="container">
       <div class="card">
         <div class="title-container">
-          <!-- 請將下方 src 替換為您的信實 Logo Base64 亂碼 -->
+          <!-- Logo 網址已修復為直接讀取格式 -->
           <img src="https://drive.google.com/uc?export=view&id=1EGg_mHTfjhqscarvitDCKKAqWN7eLFSl" alt="信實Logo">
           <h2 id="pageTitle">危害性化學品 SDS 查詢</h2>
         </div>
@@ -81,7 +80,7 @@
     </div>
 
     <script>
-      // ！！！請將下方引號內的網址替換為您的 Apps Script API 網址！！！
+      // 帶有 ?api=true 通關密語的 API 網址
       const API_URL = "https://script.google.com/macros/s/AKfycbxsmlxNt4S0oN6WeY4vkL920r31mkCBx8yCTiMKxLj5k761t_6K3MG96iITgPwyVMgsXw/exec?api=true"; 
       
       let allSdsData = [];
@@ -97,13 +96,11 @@
 
         document.getElementById('loader').style.display = 'block';
 
-        // 透過 API 抓取 Google Sheets 資料
         fetch(API_URL)
           .then(response => response.json())
           .then(data => {
             document.getElementById('loader').style.display = 'none';
             
-            // 進行分區過濾
             allSdsData = targetLoc === "ALL" ? data : data.filter(item => item.location.includes(targetLoc));
             const select = document.getElementById('sdsSelect');
             
