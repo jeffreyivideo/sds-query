@@ -13,7 +13,6 @@
         --danger-color: #e63946; 
         --success-color: #10b981; 
         --text-color: #334155; 
-        --bg-color: #f1f5f9;
       }
       
       * { box-sizing: border-box; }
@@ -21,28 +20,38 @@
       body { 
         font-family: 'PingFang TC', 'Microsoft JhengHei', -apple-system, BlinkMacSystemFont, sans-serif; 
         margin: 0; 
-        padding: 20px 15px; 
+        /* 視窗靠上：透過 padding-top 控制上方距離 (6vh 代表螢幕高度的 6%) */
+        padding: 6vh 15px 40px 15px; 
         min-height: 100vh; 
-        /* 全新專業版背景：乾淨的科技水藍漸層 */
-        background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+        
+        /* 美化背景：現代微光漸層 (Mesh Gradient)，乾淨且具備高科技質感 */
+        background-color: #f1f5f9;
+        background-image: 
+          radial-gradient(at 15% 15%, rgba(51, 146, 255, 0.12) 0px, transparent 40%),
+          radial-gradient(at 85% 15%, rgba(16, 185, 129, 0.08) 0px, transparent 40%),
+          radial-gradient(at 50% 85%, rgba(0, 97, 255, 0.08) 0px, transparent 50%),
+          linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+        background-attachment: fixed;
+        
         display: flex; 
-        align-items: center;
+        align-items: flex-start; /* 將原本的 center 改為 flex-start，讓視窗靠上對齊 */
         justify-content: center; 
         -webkit-user-select: none; 
         user-select: none; 
       }
 
-      .container { width: 100%; max-width: 500px; margin: auto; }
+      .container { width: 100%; max-width: 500px; margin: 0 auto; }
       
-      /* 蘋果風毛玻璃卡片 */
+      /* 蘋果風毛玻璃卡片 (增加立體陰影) */
       .card { 
         background: rgba(255, 255, 255, 0.85); 
-        backdrop-filter: blur(20px); 
-        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(25px); 
+        -webkit-backdrop-filter: blur(25px);
         padding: 40px 30px; 
         border-radius: 28px; 
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); 
-        border: 1px solid rgba(255, 255, 255, 0.6); 
+        /* 立體浮凸陰影 */
+        box-shadow: 0 15px 35px rgba(0, 30, 80, 0.08), 0 5px 15px rgba(0, 0, 0, 0.04); 
+        border: 1px solid rgba(255, 255, 255, 0.8); 
       }
 
       .title-container { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 35px; }
@@ -58,13 +67,12 @@
         font-size: 18px; 
         border: 2px solid #e2e8f0; 
         border-radius: 16px; 
-        background-color: rgba(255, 255, 255, 0.9); 
+        background-color: rgba(255, 255, 255, 0.95); 
         color: var(--text-color); 
         cursor: pointer; 
         transition: all 0.3s ease;
-        appearance: none; /* 隱藏原生箭頭 */
+        appearance: none; 
         -webkit-appearance: none;
-        /* 加入自訂高質感箭頭 */
         background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
         background-repeat: no-repeat;
         background-position: right 15px center;
@@ -100,11 +108,11 @@
         background: #ffffff; 
         border-radius: 20px; 
         border-left: 6px solid #0061ff; 
-        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
         display: none; 
         animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
       }
-      @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
       
       .info-row { margin-bottom: 12px; font-size: 17px; font-weight: 500; color: var(--text-color); display: flex; align-items: center;}
       .res-name-title { font-size: 22px; color: var(--secondary-color); margin-bottom: 15px; display: block; border-bottom: 2px dashed #e2e8f0; padding-bottom: 12px; font-weight: 800;}
@@ -115,7 +123,7 @@
       }
       .enlarge-btn:active { transform: scale(0.96); }
       
-      /* PDF 預覽視窗優化 */
+      /* PDF 預覽視窗 */
       #pdfModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f8fafc; z-index: 2000; flex-direction: column; }
       .modal-header { padding: 15px 20px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
       .back-btn { background: #f1f5f9; border: none; color: var(--secondary-color); padding: 10px 18px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 17px; font-weight: bold; transition: background 0.2s;}
