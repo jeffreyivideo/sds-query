@@ -168,16 +168,19 @@
           window.currentFileId = item.fileId;
           document.getElementById('resultSummary').style.display = 'block';
           
-          // 智慧圖片載入邏輯
+          // 智慧圖片載入邏輯 (強化防阻擋版)
           if (item.labelUrl && item.labelUrl.trim() !== "") {
             let finalUrl = item.labelUrl.trim();
-            // 自動轉換 Google Drive 的分享網址為可直接顯示的圖片網址
+            
+            // 將 Google Drive 網址轉換為手機不易阻擋的 Thumbnail API 格式
             if (finalUrl.includes("drive.google.com/file/d/")) {
               const match = finalUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
               if (match && match[1]) {
-                finalUrl = "https://drive.google.com/uc?export=view&id=" + match[1];
+                // 改用 thumbnail API，並加上 sz=w1000 確保畫質清晰
+                finalUrl = "https://drive.google.com/thumbnail?id=" + match[1] + "&sz=w1000";
               }
             }
+            
             document.getElementById('hazardImage').src = finalUrl;
             document.getElementById('dynamicHazardBox').style.display = 'block';
           } else {
@@ -187,7 +190,6 @@
           }
         }
       }
-
       function openModal() {
         const previewUrl = "https://drive.google.com/file/d/" + window.currentFileId + "/preview";
         document.getElementById('pdfFrame').src = previewUrl;
